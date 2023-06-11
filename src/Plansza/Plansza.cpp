@@ -4,7 +4,7 @@
 #include <algorithm>
 
 Plansza::Plansza(){
-    this->statki = std::vector<std::unique_ptr<Statek>>(10);
+    this->statki = std::vector<std::unique_ptr<Statek>>();
 }
 
 int Plansza::checkState(sf::Vector2i position) const {
@@ -22,7 +22,7 @@ int Plansza::addStatek(ShipT&& statek){
         if(this->checkState(pos) != CELL_STATE_EMPTY) return -1;
     
     for(auto pos : posVec){
-        this->matrix[pos.y][pos.x] = statki.size();
+        this->matrix[pos.y][pos.x] = statki.size() + 1;
     }
 
     this->statki.push_back(std::make_unique<ShipT>(std::move(statek)));

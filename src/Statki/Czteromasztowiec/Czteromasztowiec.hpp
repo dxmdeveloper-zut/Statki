@@ -9,7 +9,7 @@ class Czteromasztowiec : public Statek {
     virtual ~Czteromasztowiec() override {};
 
     static constexpr char defaultTexturePath[] = "images/czteromasztowiec.png";
-    static constexpr char destroyedTexturePath[] = "images/destroyed-czteromasztowiec.png";
+    static constexpr char destroyedTexturePath[] = "images/czteromasztowiec-destroyed.png";
 
     static sf::Texture defaultTexture;
     static sf::Texture destroyedTexture;

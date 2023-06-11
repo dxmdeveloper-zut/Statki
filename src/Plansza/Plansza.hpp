@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include <iostream>
 #include <vector>
 #include <memory>
 #include <Statki/Statek.hpp>
@@ -29,7 +30,21 @@ class Plansza {
     /// @return CELL_STATE_ENUM
     int checkState(sf::Vector2i position) const;
 
+    #ifdef DEBUG
+    void printMatrix(){
+        for(int i = 0; i <PLANSZA_HEIGHT ; i++){
+            for(int ii = 0; ii < PLANSZA_WIDTH ; ii++)
+                printf("%04hhi ", matrix[i][ii]);
+            printf("\n");
+        }
+    }
+    //! TEMP
+    void dbg_printStatek(sf::RenderTarget& rt){
+        rt.draw(*statki.at(0), sf::RenderStates::Default);
+    }
+    #endif
+
     private:
     std::vector<std::unique_ptr<Statek>> statki;
-    int8_t matrix[PLANSZA_HEIGHT][PLANSZA_WIDTH];
+    int8_t matrix[PLANSZA_HEIGHT][PLANSZA_WIDTH] = {0};
 };

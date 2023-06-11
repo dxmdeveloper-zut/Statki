@@ -7,4 +7,5 @@
 Czteromasztowiec::Czteromasztowiec(sf::Vector2i position, int rotation) : Statek(position, rotation) {
     Statek::loadTextures(defaultTexture, destroyedTexture,
                          defaultTexturePath, destroyedTexturePath);
+    this->sprite.setTexture(defaultTexture);
 }

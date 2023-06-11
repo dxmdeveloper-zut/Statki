@@ -11,7 +11,9 @@ int main(int argc, char * argv[]){
     sf::Clock deltaClock;
 
     Plansza plansza = Plansza();
-    plansza.addStatek(Czteromasztowiec({20, 20}, 0));
+    plansza.addStatek(Czteromasztowiec({5, 5}, 0));
+
+    plansza.printMatrix();
 
     // MAIN LOOP
     while (window.isOpen())
@@ -26,7 +28,7 @@ int main(int argc, char * argv[]){
         
        
         window.clear();
-        //window.draw(shape);
+        plansza.dbg_printStatek(window);
         window.display();
     }
 

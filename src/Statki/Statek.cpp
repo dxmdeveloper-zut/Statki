@@ -7,18 +7,25 @@ void Statek::destroy(){
     this->isDestroyed = true;
 }
 
-void Statek::setPosition(sf::Vector2i position){this->position = position;}
-void Statek::setPosition(int x, int y){this->position = {x, y};}
-
-void Statek::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(sprite);
+void Statek::setPosition(sf::Vector2i position){
+    this->position = position;
+    this->sprite.setPosition({(float)position.x * 16, (float)position.y * 16});
+}
+void Statek::setPosition(int x, int y){
+    this->position = {x, y};
+    this->sprite.setPosition({(float) x * 16, (float) y * 16});
 }
 
-Statek::Statek(sf::Vector2i position, int rotation){
+void Statek::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    target.draw(sprite, states);
+}
+
+Statek::Statek(sf::Vector2i position, int rotation) :rotation{rotation}{
+    this->setPosition(position);
 }
 
 std::vector<sf::Vector2i> Statek::getOccupiedPosVec() const {
-    std::vector<sf::Vector2i> vec(this->getLength());
+    auto vec = std::vector<sf::Vector2i>();
     size_t len = this->getLength();
     int rot = this->rotation;
     int originX = this->position.x;
