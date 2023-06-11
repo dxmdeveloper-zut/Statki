@@ -1,7 +1,7 @@
 // Define TMPL_CLASS_NAME before include
 // Include in every Statek derived class cpp
 #ifndef TMPL_CLASS_NAME
-    //#error "TMPL_CLASS_NAME NOT DEFINED"
+    #error "TMPL_CLASS_NAME NOT DEFINED"
 #endif
 
 #include <SFML/Graphics.hpp>

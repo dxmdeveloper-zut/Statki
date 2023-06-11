@@ -7,22 +7,22 @@ void Statek::destroy(){
     this->isDestroyed = true;
 }
 
-void Statek::setPosition(std::pair<int, int> position){this->position = position;}
+void Statek::setPosition(sf::Vector2i position){this->position = position;}
 void Statek::setPosition(int x, int y){this->position = {x, y};}
 
 void Statek::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(sprite);
 }
 
-Statek::Statek(std::pair<int, int> position){
+Statek::Statek(sf::Vector2i position, int rotation){
 }
 
-std::vector<std::pair<int, int>> Statek::getOccupiedPosVec() const {
-    std::vector<std::pair<int, int>> vec(this->getLength());
+std::vector<sf::Vector2i> Statek::getOccupiedPosVec() const {
+    std::vector<sf::Vector2i> vec(this->getLength());
     size_t len = this->getLength();
     int rot = this->rotation;
-    int originX = this->position.first;
-    int originY = this->position.second;
+    int originX = this->position.x;
+    int originY = this->position.y;
     if(rot | 1){
         for(int y = originY; (rot == 1 ? y < originY + len : y > originY - len); y += (rot == 1 ? 1 : -1)){
             vec.push_back({originX, y});
@@ -35,4 +35,12 @@ std::vector<std::pair<int, int>> Statek::getOccupiedPosVec() const {
     return vec;
 }
 
-Statek::~Statek() {};
+Statek::~Statek() {}
+
+void Statek::loadTextures(sf::Texture &defaultTex,sf::Texture &destroyedTex,
+                          const char *defTexPath, const char *desTexPath) {
+    if(defaultTex.getSize().x == 0) {
+        defaultTex.loadFromFile(defTexPath);
+        destroyedTex.loadFromFile(desTexPath);
+    }
+};

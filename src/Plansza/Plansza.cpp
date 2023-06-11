@@ -1,26 +1,34 @@
 #include "Plansza.hpp"
+#include "Statki/Czteromasztowiec/Czteromasztowiec.hpp"
+#include "Statki/Dwumasztowiec/Dwumasztowiec.hpp"
 #include <algorithm>
 
 Plansza::Plansza(){
-    this->statki = std::vector<Statek>(10);
+    this->statki = std::vector<std::unique_ptr<Statek>>(10);
 }
 
-int Plansza::checkState(std::pair<int, int> position) const {
-    if(position.first < 0 || position.second < 0 
-    || position.first >= PLANSZA_WIDTH || position. second >= PLANSZA_HEIGHT)
+int Plansza::checkState(sf::Vector2i position) const {
+    if(position.x < 0 || position.y < 0 
+    || position.x >= PLANSZA_WIDTH || position.y >= PLANSZA_HEIGHT)
         return INVALID_CELL_POSITION;
 
-    return this->matrix[position.second][position.first];
+    return this->matrix[position.y][position.x];
 }
 
-int Plansza::addStatek(Statek statek){
+template<class ShipT>
+int Plansza::addStatek(ShipT&& statek){
     auto posVec = statek.getOccupiedPosVec();
     for(auto pos : posVec)
         if(this->checkState(pos) != CELL_STATE_EMPTY) return -1;
     
     for(auto pos : posVec){
-        this->matrix[pos.second][pos.first] = statki.size();
+        this->matrix[pos.y][pos.x] = statki.size();
     }
 
-    this->statki.push_back(statek);
+    this->statki.push_back(std::make_unique<ShipT>(std::move(statek)));
+    return 0;
 }
+template int Plansza::addStatek<Czteromasztowiec>(Czteromasztowiec&& statek);
+template int Plansza::addStatek<Dwumasztowiec>(Dwumasztowiec&& statek);
+//template int Plansza::addStatek(ShipT&& statek)
+//template int Plansza::addStatek(ShipT&& statek)

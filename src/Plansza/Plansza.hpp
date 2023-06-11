@@ -14,22 +14,22 @@
 */
 enum CELL_STATE_ENUM {
     CELL_STATE_EMPTY            =  0,
-    CELL_STATE_MISSED           = 256,
-    INVALID_CELL_POSITION       = 257,
+    CELL_STATE_MISSED           = 100,
+    INVALID_CELL_POSITION       = 101,
 };
-
-
 
 class Plansza {
     public:
     Plansza();
+
     /// @return 0 on success, -1 if position is invalid, -2 if position is occupied
-    int addStatek(Statek statek);
+    template <class ShipT>
+    int addStatek(ShipT&& statek);
 
     /// @return CELL_STATE_ENUM
-    int checkState(std::pair<int, int> position) const;
+    int checkState(sf::Vector2i position) const;
 
     private:
-    std::vector<Statek> statki;
+    std::vector<std::unique_ptr<Statek>> statki;
     int8_t matrix[PLANSZA_HEIGHT][PLANSZA_WIDTH];
 };

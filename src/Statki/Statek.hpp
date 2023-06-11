@@ -13,16 +13,16 @@ enum STATEK_ROTATION_ENUM {
 };
 
 class Statek : public sf::Drawable {
-    public:
-    Statek(std::pair<int, int> position);
+public:
+    Statek(sf::Vector2i position, int rotation);
     virtual ~Statek();
 
     // Own Methods
     void destroy();
-    void setPosition(std::pair<int, int> position);
+    void setPosition(sf::Vector2i position);
     void setPosition(int x, int y);
     
-    std::vector<std::pair<int, int>> getOccupiedPosVec() const;
+    std::vector<sf::Vector2i> getOccupiedPosVec() const;
 
     // Inherited
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
@@ -32,13 +32,15 @@ class Statek : public sf::Drawable {
     virtual const sf::Texture& getDefaultTexture() const = 0;
     virtual const sf::Texture& getDestroyedTexture() const = 0;
 
-    protected:
+protected:
+    static void loadTextures(sf::Texture& defaultTex, sf::Texture& destroyedTex, const char defTexPath[], const char desTexPath[]);
 
+protected:
     int rotation;
-    std::pair<int, int> position;
+    sf::Vector2i position;
 
     sf::Sprite sprite;
     bool isDestroyed;
 
-    private:
+private:
 };
