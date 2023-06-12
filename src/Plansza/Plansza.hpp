@@ -8,7 +8,6 @@
 #define PLANSZA_WIDTH 10
 #define PLANSZA_HEIGHT 10
 
-
 /*
  range [1 : 11] statek index+1
  range [-11 : -1] statek abs(index+1)
@@ -29,6 +28,9 @@ class Plansza {
 
     /// @return CELL_STATE_ENUM
     int checkState(sf::Vector2i position) const;
+
+    /// @return CELL_STATE_ENUM
+    int shoot(sf::Vector2i position);
 
     #ifdef DEBUG
     void printMatrix(){

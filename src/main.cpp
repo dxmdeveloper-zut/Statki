@@ -2,6 +2,8 @@
 #include <array>
 #include "Statki/Czteromasztowiec/Czteromasztowiec.hpp"
 #include <SFML/Graphics.hpp>
+
+#define DEBUG 1
 #include "Plansza/Plansza.hpp"
 
 #define FPS 60

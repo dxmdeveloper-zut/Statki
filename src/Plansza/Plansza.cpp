@@ -2,6 +2,7 @@
 #include "Statki/Czteromasztowiec/Czteromasztowiec.hpp"
 #include "Statki/Dwumasztowiec/Dwumasztowiec.hpp"
 #include <algorithm>
+#include <functional>
 
 Plansza::Plansza(){
     this->statki = std::vector<std::unique_ptr<Statek>>();
@@ -13,6 +14,20 @@ int Plansza::checkState(sf::Vector2i position) const {
         return INVALID_CELL_POSITION;
 
     return this->matrix[position.y][position.x];
+}
+
+int Plansza::shoot(sf::Vector2i position) {
+    int cell_state = this->checkState(position);
+    switch(cell_state){
+        case INVALID_CELL_POSITION: break;
+        case CELL_STATE_MISSED: return INVALID_CELL_POSITION;
+        case CELL_STATE_EMPTY: this->matrix[position.y][position.x] = CELL_STATE_MISSED; break;
+        default: {
+            int8_t *cellp = &this->matrix[position.y][position.x];
+            if(*cellp < 0) return INVALID_CELL_POSITION;
+            *cellp = -(cellp[0]);
+        } break;
+    }
 }
 
 template<class ShipT>
